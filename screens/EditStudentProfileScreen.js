@@ -25,6 +25,7 @@ export default function EditStudentProfileScreen({ route, navigation }) {
             age: parseInt(age, 10),
             matricula,
             email,
+            course,
         };
         // Volta para a tela de perfil com os dados atualizados
         navigation.navigate('Profile', { updatedStudent });
