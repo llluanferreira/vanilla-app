@@ -16,6 +16,7 @@ export default function EditStudentProfileScreen({ route, navigation }) {
     const [age, setAge] = useState(student.age.toString());
     const [matricula, setMatricula] = useState(student.matricula);
     const [email, setEmail] = useState(student.email);
+    const [course, setCourse] = useState(student.course);
 
     // Função para salvar as informações
     const handleSave = () => {
@@ -59,6 +60,14 @@ export default function EditStudentProfileScreen({ route, navigation }) {
                 placeholder="Email"
                 keyboardType="email-address"
             />
+            <TextInput
+                style={styles.input}
+                value={email}
+                onChangeText={setCourse}
+                placeholder="Course"
+                keyboardType="Course"/>
+
+            
 
             {/* Botão para salvar as informações editadas */}
             <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
