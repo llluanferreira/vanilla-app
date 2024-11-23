@@ -8,6 +8,8 @@ import {
 } from 'react-native';
 import { getAuth } from 'firebase/auth';
 import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { Ionicons } from '@expo/vector-icons';
+
 
 export default function DriverDashboard({ navigation }) {
     const [routes, setRoutes] = useState([]);
@@ -63,13 +65,24 @@ export default function DriverDashboard({ navigation }) {
                     )}
                 />
             )}
-
-            <TouchableOpacity
-                style={styles.addButton}
-                onPress={() => navigation.navigate("AddRoute", { userId })}
-            >
-                <Text style={styles.addButtonText}>Adicionar Nova Rota</Text>
-            </TouchableOpacity>
+            <View style={styles.navBar}>
+                <TouchableOpacity onPress={() => navigation.navigate("DriverDashboard", { userId })}>
+                    <Ionicons name="home-outline" size={24} color="#333" />
+                    <Text style={styles.navBarText}>Home</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("DriverChat", { userId })}>
+                    <Ionicons name="chatbox-outline" size={24} color="#333" />
+                    <Text style={styles.navBarText}>Chat</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("DriverProfile", { userId })}>
+                    <Ionicons name="person-outline" size={24} color="#333" />
+                    <Text style={styles.navBarText}>Perfil</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("AddRoute", { userId })}>
+                    <Ionicons name="add-circle-outline" size={24} color="#333" />
+                    <Text style={styles.navBarText}>Nova rota</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 }
@@ -87,12 +100,20 @@ const styles = StyleSheet.create({
         borderColor: '#ddd',
     },
     routeInfo: { fontSize: 16, color: '#333', marginBottom: 5 },
-    addButton: {
-        backgroundColor: '#000',
-        padding: 15,
-        borderRadius: 5,
-        alignItems: 'center',
-        marginTop: 20,
+    navBar: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        padding: 10,
+        borderTopWidth: 1,
+        borderColor: '#ddd',
+        backgroundColor: '#fff',
     },
-    addButtonText: { color: '#fff', fontSize: 16, fontWeight: 'bold' },
+    navBarText: {
+        fontSize: 12,
+        textAlign: 'center',
+        color: '#333',
+        marginTop: 2,
+    },
 });
+
+        

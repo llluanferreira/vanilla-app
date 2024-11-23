@@ -66,12 +66,15 @@ export default function TripsScreen({ navigation }) {
       <View style={styles.bottomNav}>
         <TouchableOpacity onPress={() => navigation.navigate('Trips')}>
           <Ionicons name="home-outline" size={24} color="#333" />
+          <Text style={styles.navBarText}>Home</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('ChatList')}>
           <Ionicons name="chatbox-outline" size={24} color="#333" />
+          <Text style={styles.navBarText}>Chat</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
           <Ionicons name="person-outline" size={24} color="#333" />
+          <Text style={styles.navBarText}>Perfil</Text>
         </TouchableOpacity>
       </View>
     </View>
