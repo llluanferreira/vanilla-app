@@ -62,9 +62,9 @@ export default function EditStudentProfileScreen({ route, navigation }) {
             />
             <TextInput
                 style={styles.input}
-                value={email}
+                value={course}
                 onChangeText={setCourse}
-                placeholder="Course"
+                placeholder="course"
                 keyboardType="Course"/>
 
             
