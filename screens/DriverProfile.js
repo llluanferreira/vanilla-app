@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import{
+import React, { useState, useEffect } from 'react';
+import {
     View,
     Text,
     TextInput,
@@ -7,134 +7,139 @@ import{
     StyleSheet,
     Image,
     ScrollView,
-}from 'react-native'
-import { getFirestore,doc,getDoc,updateDoc } from "firebase/firestore";
-import {auth} from '../firebaseConfig';
-import { Avatar } from "react-native-gifted-chat";
+} from 'react-native';
+import { getFirestore, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { auth, db } from '../firebaseConfig';
 
-export default function DriverProfile({navigation}){
-    const [driverData, setDriverdata] = useState({});
+export default function DriverProfile({ navigation }) {
+    const [driverData, setDriverData] = useState({});
     const [isLoading, setIsLoading] = useState(true);
 
     const fetchDriverData = async () => {
-        try{
-            const userId = auth.currentUSer?.uid;
-            if(!userId){
+        try {
+            const userId = auth.currentUser?.uid;
+            if (!userId) {
                 alert("Erro: usuário não identificado!");
                 navigation.navigate("DriverDashboard");
                 return;
             }
+
             const db = getFirestore();
             const docRef = doc(db, "drivers", userId);
             const docSnap = await getDoc(docRef);
 
-            if(docSnap.exists()){
-                setDriverdata(docSnap.data());
-            }else{
-                alert("Dados do motorista não encontrados");
+            if (docSnap.exists()) {
+                setDriverData(docSnap.data());
+            } else {
+                alert("Dados do motorista não encontrados.");
             }
+
             setIsLoading(false);
-        } catch (error){
+        } catch (error) {
             console.error("Erro ao buscar dados do motorista:", error);
             setIsLoading(false);
         }
     };
 
-    useEffect(()=> {
+    useEffect(() => {
         fetchDriverData();
-    },[]);
+    }, []);
 
     const handleSave = async () => {
         try {
-            const userId = auth.currentUSer?.uid;
+            const userId = auth.currentUser?.uid;
             const db = getFirestore();
             const docRef = doc(db, "drivers", userId);
 
-            await updateDoc (docRef, driverData);
+            await updateDoc(docRef, driverData);
 
-            alert ("informações atualizada com sucesso");
-
+            alert("Informações atualizadas com sucesso!");
         } catch (error) {
-            console.error ("erro ao salvar informações", error); 
-            alert ("Erro ao salvar informações. Tente novamente");   
+            console.error("Erro ao salvar informações:", error);
+            alert("Erro ao salvar informações. Tente novamente.");
         }
     };
 
-
-    if (isLoading){
+    if (isLoading) {
         return (
-            <view style = {styles.loadingContainer}>
-                <text>Carregando...</text>
-            </view>
+            <View style={styles.loadingContainer}>
+                <Text>Carregando...</Text>
+            </View>
         );
     }
 
     return (
-        <ScrollView contentContainerStyle = {styles.container}>
-            <text style = {styles.name}>{driverData.name|| "NOME_MOTORISTA"}</text>
+        <ScrollView contentContainerStyle={styles.container}>
+            <Text style={styles.name}>{driverData.name || "Gabriel Gomes Rizzoli"}</Text>
 
-            <text style = {styles.label}>TELEFONE:</text>
-            <TextInput>
-                style = {styles.input}
-                value = {driverData.phone||''}
-                onChangeText = {(text) => setDriverdata({...driverData, phone: text})}
-            </TextInput>
+            <Text style={styles.label}>TELEFONE:</Text>
+            <TextInput
+                style={styles.input}
+                value={driverData.phone || ''}
+                onChangeText={(text) => setDriverData({ ...driverData, phone: text })}
+            />
 
-            <text style = {styles.label}>CNPJ:</text>
-            <TextInput>
-                style = {styles.input}
-                value = {driverData.cnpj||''}
-                onChangeText = {(text) => setDriverdata({...driverData, cnpj: text})}
-            </TextInput>
+            <Text style={styles.label}>E-MAIL:</Text>
+            <TextInput
+                style={styles.input}
+                value={driverData.email || ''}
+                onChangeText={(text) => setDriverData({ ...driverData, email: text })}
+            />
 
-            <text style = {styles.label}>ORIGEM:</text>
-            <TextInput>
-                style = {styles.input}
-                value = {driverData.route?.departure||''}
-                onChangeText = {(text) =>
-                    setDriverdata({
-                        ...driverData, 
-                        route:{...driverData, departure: text},
+            <Text style={styles.label}>CNPJ:</Text>
+            <TextInput
+                style={styles.input}
+                value={driverData.cnpj || ''}
+                onChangeText={(text) => setDriverData({ ...driverData, cnpj: text })}
+            />
+
+            
+            <Text style={styles.subLabel}>ORIGEM:</Text>
+            <TextInput
+                style={styles.input}
+                value={driverData.route?.departure || ''}
+                onChangeText={(text) =>
+                    setDriverData({
+                        ...driverData,
+                        route: { ...driverData.route, departure: text },
                     })
                 }
-            </TextInput>
-            <text style = {styles.label}>DESTINO:</text>
-            <TextInput>
-                style = {styles.input}
-                value = {driverData.route?.destination||''}
-                onChangeText = {(text) =>
-                    setDriverdata({
-                        ...driverData, 
-                        route:{...driverData, destination: text},
+            />
+            <Text style={styles.subLabel}>DESTINO:</Text>
+            <TextInput
+                style={styles.input}
+                value={driverData.route?.destination || ''}
+                onChangeText={(text) =>
+                    setDriverData({
+                        ...driverData,
+                        route: { ...driverData.route, destination: text },
                     })
                 }
-            </TextInput>
+            />
 
-            <TouchableOpacity style = {styles.saveButtom} onPress={handleSave}>
-                <text style = {styles.saveButtomText}>Salvar informações</text>
+            <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
+                <Text style={styles.saveButtonText}>Salvar Informações</Text>
             </TouchableOpacity>
         </ScrollView>
     );
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
-        padding: 20, 
-        backgroundColor: '#f5f5f5'
+        padding: 20,
+        backgroundColor: '#f5f5f5',
     },
     loadingContainer: {
-        flex: 1, 
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-
-    }, 
+    },
     avatar: {
-        width: 100, 
+        width: 100,
         height: 100,
-        borderRadius: 50, 
+        borderRadius: 50,
         alignSelf: 'center',
-        marginBottom: 20, 
-
+        marginBottom: 20,
     },
     name: {
         fontSize: 24,
