@@ -25,7 +25,7 @@ export default function App() {
         <Stack.Screen name="EditProfile" component={EditStudentProfileScreen} options={{ title: 'Editar Perfil' }} />
         <Stack.Screen name="DriverDashboard" component={DriverDashboard} options={{ title: 'Dashboard do Motorista' }} />
         <Stack.Screen name="AddRoute" component={AddRoute} options={{ title: 'Adicionar Rota' }} />
-        <Stack.Screen name="DriverChat" component={DriverChat} options={{title: 'Chat com Motorista'}} />
+        <Stack.Screen name="DriverChat" component={DriverChat} />
       </Stack.Navigator>
     </NavigationContainer>
   );

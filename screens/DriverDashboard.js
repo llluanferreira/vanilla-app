@@ -66,20 +66,24 @@ export default function DriverDashboard({ navigation }) {
                 />
             )}
             <View style={styles.navBar}>
-                    <TouchableOpacity onPress={() => navigation.navigate("DriverDashboard")}>
-                        <Ionicons name="home-outline" size={24} color="#333" />
-                        <   Text style={styles.navBarText}>Home</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate("DriverChat")}>
-                        <Ionicons name="chatbox-outline" size={24} color="#333" />
-                        <Text style={styles.navBarText}>Chat</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate("DriverProfile")}>
-                        <Ionicons name="person-outline" size={24} color="#333" />
-                        <Text style={styles.navBarText}>Perfil</Text>
-                    </TouchableOpacity>
-                </View>
+                <TouchableOpacity onPress={() => navigation.navigate("DriverDashboard")}>
+                    <Ionicons name="home-outline" size={24} color="#333" />
+                    <   Text style={styles.navBarText}>Home</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("DriverChat")}>
+                    <Ionicons name="chatbox-outline" size={24} color="#333" />
+                    <Text style={styles.navBarText}>Chat</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("DriverProfile")}>
+                    <Ionicons name="person-outline" size={24} color="#333" />
+                    <Text style={styles.navBarText}>Perfil</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("AddRoute", { userId })}>
+                    <Ionicons name="add-circle-outline" size={24} color="#333" />
+                    <Text style={styles.navBarText}>Nova Rota</Text>
+                </TouchableOpacity>
             </View>
+        </View>
     );
 }
 
@@ -112,4 +116,4 @@ const styles = StyleSheet.create({
     },
 });
 
-        
+
